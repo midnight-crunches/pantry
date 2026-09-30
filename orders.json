@@ -1,0 +1,171 @@
+﻿[
+    {
+        "orderId":  "#DORMS-444",
+        "roomNo":  "Room 105",
+        "studentName":  "Aryan",
+        "grandTotal":  80,
+        "paymentMethod":  "Paid via Paytm QR",
+        "utrNo":  "425301889922"
+    },
+    {
+        "orderId":  "#DORMS-302",
+        "studentName":  "Rohit Kumar",
+        "orderType":  "Room Delivery (2-3 Mins)",
+        "roomNo":  "Room 108",
+        "utrNo":  "425301889922",
+        "paymentMethod":  "Paid via Paytm QR",
+        "grandTotal":  95
+    },
+    {
+        "orderId":  "#DORMS-888",
+        "studentName":  "Anukarsh",
+        "roomNo":  "Room 105",
+        "utrNo":  "425301889922",
+        "paymentMethod":  "Paid via Paytm QR",
+        "grandTotal":  85
+    },
+    {
+        "orderId":  "#DORMS-264",
+        "timestamp":  "2026-09-09 17:33:15",
+        "studentName":  "Fellow Hostelite",
+        "roomNo":  "Room 102 (1F, 3-Seater)",
+        "phone":  "",
+        "orderType":  "Room Delivery (2-3 Mins)",
+        "instructions":  "Deliver in 2-3 mins",
+        "items":  [
+                      {
+                          "name":  "Dorms Midterm Power Duo",
+                          "variant":  "2x Lay\u0027s Blue + 1x Thums Up 750ml",
+                          "qty":  1,
+                          "basePrice":  69
+                      }
+                  ],
+        "totalPackets":  1,
+        "subtotal":  69,
+        "discount":  0,
+        "roomDeliveryFee":  5,
+        "grandTotal":  74,
+        "paymentMethod":  "WhatsApp Order",
+        "status":  "completed"
+    },
+    {
+        "orderId":  "#DORMS-382",
+        "timestamp":  "2026-09-09 17:28:38",
+        "studentName":  "Fellow Hostelite",
+        "roomNo":  "Room 102 (1F, 3-Seater)",
+        "phone":  "",
+        "orderType":  "Room Delivery (2-3 Mins)",
+        "instructions":  "Deliver in 2-3 mins",
+        "items":  [
+                      {
+                          "name":  "Mirinda Orange Carbonated Beverage",
+                          "variant":  "400 ml Bottle",
+                          "qty":  1,
+                          "basePrice":  20
+                      }
+                  ],
+        "totalPackets":  1,
+        "subtotal":  20,
+        "discount":  0,
+        "roomDeliveryFee":  5,
+        "grandTotal":  25,
+        "paymentMethod":  "WhatsApp Order",
+        "status":  "completed"
+    },
+    {
+        "orderId":  "#DORMS-749",
+        "timestamp":  "2026-09-09 17:28:11",
+        "studentName":  "Fellow Hostelite",
+        "roomNo":  "Room 102 (1F, 3-Seater)",
+        "phone":  "",
+        "orderType":  "Room Delivery (2-3 Mins)",
+        "instructions":  "Deliver in 2-3 mins",
+        "items":  [
+                      {
+                          "name":  "Mirinda Orange Carbonated Beverage",
+                          "variant":  "400 ml Bottle",
+                          "qty":  1,
+                          "basePrice":  20
+                      }
+                  ],
+        "totalPackets":  1,
+        "subtotal":  20,
+        "discount":  0,
+        "roomDeliveryFee":  5,
+        "grandTotal":  25,
+        "paymentMethod":  "WhatsApp Order",
+        "status":  "completed"
+    },
+    {
+        "orderId":  "#DORMS-924",
+        "timestamp":  "2026-09-09 16:03:44",
+        "studentName":  "Fellow Hostelite",
+        "roomNo":  "Room 102 (1F, 3-Seater)",
+        "phone":  "",
+        "orderType":  "Self Service (Pickup at Room 03)",
+        "instructions":  "Self pickup at Room 03",
+        "items":  [
+                      {
+                          "name":  "Mountain Dew Soft Drink PET",
+                          "variant":  "400 ml Bottle",
+                          "qty":  1,
+                          "basePrice":  20
+                      }
+                  ],
+        "totalPackets":  1,
+        "subtotal":  20,
+        "discount":  0,
+        "roomDeliveryFee":  0,
+        "grandTotal":  20,
+        "paymentMethod":  "Cash/UPI on Handover",
+        "status":  "completed"
+    },
+    {
+        "orderId":  "#DORMS-830",
+        "timestamp":  "2026-09-09 16:02:53",
+        "studentName":  "Fellow Hostelite",
+        "roomNo":  "Room 102 (1F, 3-Seater)",
+        "phone":  "",
+        "orderType":  "Room Delivery (2-3 Mins)",
+        "instructions":  "Deliver in 2-3 mins",
+        "items":  [
+                      {
+                          "name":  "Thums Up Jumbo Feast Bottle",
+                          "variant":  "2.25 L Bottle",
+                          "qty":  1,
+                          "basePrice":  95
+                      }
+                  ],
+        "totalPackets":  1,
+        "subtotal":  95,
+        "discount":  0,
+        "roomDeliveryFee":  5,
+        "grandTotal":  100,
+        "paymentMethod":  "Paid via Paytm QR",
+        "status":  "completed"
+    },
+    {
+        "orderId":  "#DORMS-580",
+        "timestamp":  "2026-09-09 15:39:16",
+        "studentName":  "Kunal Sharma",
+        "roomNo":  "Room 105 (First Floor)",
+        "phone":  "9876543210",
+        "orderType":  "Room Delivery (2-3 Mins)",
+        "instructions":  "Knock quietly",
+        "items":  [
+                      {
+                          "name":  "4-Seater Room Binge Box",
+                          "variant":  "4x Lay\u0027s (All Colors) + 1.25L Thums Up",
+                          "qty":  1,
+                          "basePrice":  125
+                      }
+                  ],
+        "totalPackets":  1,
+        "subtotal":  125,
+        "discount":  0,
+        "roomDeliveryFee":  5,
+        "grandTotal":  130,
+        "paymentMethod":  "Paid via Paytm QR",
+        "status":  "rejected"
+    }
+]

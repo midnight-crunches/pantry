@@ -1,0 +1,21 @@
+﻿{
+  "ownerPhone": "8870803716",
+  "ownerName": "Anukarsh Kaliyar",
+  "ownerRoom": "Room 03",
+  "speechAlert": true,
+  "desktopToast": true,
+  "callmebot": {
+    "enabled": false,
+    "phone": "+918870803716",
+    "apiKey": ""
+  },
+  "telegram": {
+    "enabled": false,
+    "botToken": "",
+    "chatId": ""
+  },
+  "webhook": {
+    "enabled": false,
+    "url": ""
+  }
+}

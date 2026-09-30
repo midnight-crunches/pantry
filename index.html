@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midnight Crunches | Ramanujan Late-Night Snacks & Drinks</title>
+  <meta name="description" content="AIT Pune Ramanujan Hostel (Dooms) Late-Night Pantry. Order crunchy chips, cold drinks, and combos delivered to your room in 2-3 minutes or collect from Room 03! Live 12 AM - 4 AM.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- EFFECT 1 & 20: OTSUKA-AIR ATMOSPHERIC PARTICLE CANVAS -->
+  <canvas id="midnight-canvas"></canvas>
+  <div class="ambient-glow-mesh"></div>
+
+  <!-- SITE NAVIGATION HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <!-- EFFECT 10: ANIMATED LOGO -->
+      <a href="#" class="brand-logo-wrap">
+        <div class="neon-logo-icon">&#127769;</div>
+        <div class="brand-text-block">
+          <span class="brand-title">Midnight Crunches</span>
+          <span class="brand-sub">Ramanujan Hostel &bull; 12 AM - 4 AM</span>
+        </div>
+      </a>
+
+      <!-- LIVE DORMS GATE & TIMING STATUS TICKER -->
+      <div class="gate-ticker-pill" id="gate-status-badge">
+        <span class="pulse-dot active"></span>
+        <span class="gate-text">DORMS TIMINGS: <strong>12:00 AM - 4:00 AM</strong> &#9889; | <strong>2-3 MIN DELIVERY</strong></span>
+      </div>
+
+      <!-- ACTIONS (OWNER TEST MODE, AUDIO FX & CART) -->
+      <div class="header-actions">
+        <!-- Owner Quick Test Toggle (Allows testing orders anytime) - REMOVED -->
+
+
+        <button class="sound-toggle-pill" id="sound-toggle-btn" title="Toggle Sound FX (Crunch, Fizz & Bell)">
+          <span class="icon sound-waves">&#128266;</span> Audio Live
+        </button>
+
+        <button class="header-cart-btn" id="header-cart-btn" onclick="app.openCart()">
+          <span class="cart-icon-symbol">&#128722;</span>
+          <span class="cart-btn-label">Stash</span>
+          <span class="cart-count-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- LIVE HOSTEL ORDERS ACTIVITY BAR -->
+  <div class="live-activity-bar">
+    <div class="activity-inner">
+      <span class="activity-label">&#9889; Dorms Live Ticker</span>
+      <div class="ticker-text" id="live-order-ticker-text">
+        &#128293; <strong>Deepak</strong> from <strong>Room 06 (Ground Floor)</strong> just ordered: <em>Dorms Midterm Power Duo &#9889;</em>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ==========================================
+         HERO SECTION: AIT PUNE RAMANUJAN DORMS
+         ========================================== -->
+    <section class="hero-section">
+      <div class="hero-layout">
+        <!-- Hero Left Copy -->
+        <div class="hero-copy-block">
+          <div class="hero-tagline-badge">
+            <span>AIT PUNE &bull; RAMANUJAN HOSTEL</span> &bull; 12:00 AM to 3:00 AM
+          </div>
+          
+          <h1 class="hero-title">
+            Studying in Dooms?<br>
+            <span class="glow-word">Midnight Cravings</span><br>
+            <span class="accent-sub">Solved in 2-3 Mins.</span>
+          </h1>
+
+          <!-- Store Status Banner (Live countdown when closed, or Open indicator) -->
+          <div id="hero-store-status-banner" style="margin-bottom: 1.5rem;">
+            <!-- Injected via app.js -->
+          </div>
+
+          <p class="hero-description">
+            Hostel gates close at 10:00 PM, but the AIT engineering grind never stops. We deliver chilled beverages, crunchy Lay's, Kurkure, and study combos right to your room door in <strong>2 to 3 minutes</strong>, or you can pick them up directly from <strong>Room 03 (Ground Floor)</strong>!
+          </p>
+
+          <div class="hero-highlight-box">
+            &#128682; <strong>Two Easy Options:</strong><br>
+            &bull; <strong>Room Doorstep Delivery:</strong> Delivered in <strong>2&ndash;3 minutes</strong> (FREE).<br>
+            &bull; <strong>Self-Service Pickup:</strong> Come to <strong>Room 03 (FirstFloor)</strong> and collect for <strong>FREE (&#8377;0 extra)</strong>!
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="#catalog" class="cta-primary-btn">
+              <span>View Dorms Menu</span>
+              <span>&#127839;</span>
+            </a>
+            <a href="#room-map" class="cta-secondary-btn">
+              <span>Select Your Room</span>
+              <span>&#127970;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Right: 3D Floating Snack Mockups with Paytm QR Teaser -->
+        <div class="hero-stage-container">
+          <div class="morphing-blob-glow"></div>
+          
+          <div class="hero-3d-snack-art">
+            <!-- Floating Hero Snack 1: Lay's Magic Masala -->
+            <div class="floating-hero-snack">
+              <div class="hero-art-emoji">&#129364;</div>
+              <div>
+                <div class="hero-art-title">Lay's Magic Masala</div>
+                <div style="font-size: 0.8rem; color: #90caf9;">India's Blue Pack &bull; 52g</div>
+              </div>
+              <div class="hero-art-price">&#8377;20 <span style="font-size: 0.7rem; color: #cbd5e1;">(Room 03 Pickup)</span></div>
+            </div>
+
+            <!-- Floating Hero Snack 2: Chilled Thums Up -->
+            <div class="floating-hero-drink">
+              <div class="hero-art-emoji">&#129380;</div>
+              <div>
+                <div class="hero-art-title">Thums Up Cola</div>
+                <div style="font-size: 0.75rem; color: #80d8ff;">Chilled to 3.5&deg;C &#10052;</div>
+              </div>
+              <div class="hero-art-price">&#8377;37 <span style="font-size: 0.7rem; color: #cbd5e1;">(750ml)</span></div>
+            </div>
+          </div>
+
+          <!-- Doodle Stickers -->
+          <div class="doodle-sticker top-left">ROOM 03 HQ &#127968;</div>
+          <div class="doodle-sticker bottom-right">2-3 MINS DELIVERY! &#9889;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RUNNING MARQUEE -->
+    <section class="running-marquee-section">
+      <div class="marquee-track">
+        <div class="marquee-item"><span>&#127769; AIT PUNE &bull; RAMANUJAN DORMS</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#9889; SUPERFAST 2-3 MIN ROOM DELIVERY</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#127968; FREE SELF PICKUP AT ROOM 03 (GROUND FLOOR)</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#128339; OPEN STRICTLY 12:00 AM TO 4:00 AM</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#128242; WHATSAPP DISPATCH TO 8870803716</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#128179; PAYTM ACCEPTED (8870803716@ptyes)</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#127991;&#65039; USE COUPON AITDORMS FOR &#8377;10 OFF</span><span class="sep">&bull;</span></div>
+        <!-- Loop duplicate -->
+        <div class="marquee-item"><span>&#127769; AIT PUNE &bull; RAMANUJAN DORMS</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#9889; SUPERFAST 2-3 MIN ROOM DELIVERY</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#127968; FREE SELF PICKUP AT ROOM 03</span><span class="sep">&bull;</span></div>
+        <div class="marquee-item"><span>&#128339; OPEN 12:00 AM TO 4:00 AM</span><span class="sep">&bull;</span></div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         RAMANUJAN DOOMS ROOM SELECTOR (GF 10 rooms, 1F 15 rooms)
+         ========================================== -->
+    <section class="hostel-iso-section" id="room-map">
+      <div class="iso-building-card">
+        <div class="iso-grid-container">
+          <!-- Left Info -->
+          <div class="iso-info-side">
+            <span class="section-japanese-tag">RAMANUJAN HOSTEL &bull; AIT PUNE</span>
+            <h3>Interactive Dooms Room Map</h3>
+            <p>
+              Click your room below! First Floor has 15 rooms (including <strong>Room 03 Pantry HQ</strong>), and Ground Floor has 8 rooms (5-seater).
+            </p>
+
+            <div class="iso-feature-pills">
+              <div class="iso-feat-item">
+                <span class="icon">&#9889;</span>
+                <span>Room Delivery Speed: <strong>2 to 3 minutes</strong></span>
+              </div>
+              <div class="iso-feat-item">
+                <span class="icon">&#127968;</span>
+                <span>Self-Pickup Point: <strong>Room 03, First Floor (Anukarsh)</strong></span>
+              </div>
+              <div class="iso-feat-item">
+                <span class="icon">&#128242;</span>
+                <span>Notifications & queries: <strong>WhatsApp 8870803716</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Interactive Floor Matrix -->
+          <div class="iso-building-matrix">
+            <!-- First Floor: 15 Rooms -->
+            <div class="floor-row">
+              <span class="floor-label">1st Floor<br><small style="font-size:0.68rem; color:#94a3b8;">(15 Rooms)</small></span>
+              <div class="floor-rooms">
+                <button class="iso-room-cell" data-room="01" onclick="app.selectHostelRoom('1st', '01', '2-Seater')">01 <small>3S</small></button>
+                <button class="iso-room-cell" data-room="02" onclick="app.selectHostelRoom('1st', '02', '4-Seater')">02 <small>3S</small></button>
+                <button class="iso-room-cell hq-room" data-room="03" onclick="app.selectHostelRoom('1st', '03', 'Pantry HQ')" title="Anukarsh's Room - Collection Point">
+                  03 &#11088; <small>HQ</small>
+                </button>
+                <button class="iso-room-cell" data-room="04" onclick="app.selectHostelRoom('1st', '04', '2-Seater')">04 <small>2S</small></button>
+                <button class="iso-room-cell" data-room="05" onclick="app.selectHostelRoom('1st', '05', '2-Seater')">05 <small>4S</small></button>
+                <button class="iso-room-cell" data-room="06" onclick="app.selectHostelRoom('1st', '06', '3-Seater')">06 <small>4S</small></button>
+                <button class="iso-room-cell" data-room="07" onclick="app.selectHostelRoom('1st', '07', '4-Seater')">07 <small>3S</small></button>
+                <button class="iso-room-cell" data-room="08" onclick="app.selectHostelRoom('1st', '08', '4-Seater')">08 <small>3S</small></button>
+                <button class="iso-room-cell" data-room="09" onclick="app.selectHostelRoom('1st', '09', '4-Seater')">09 <small>2S</small></button>
+                <button class="iso-room-cell" data-room="10" onclick="app.selectHostelRoom('1st', '10', '4-Seater')">10 <small>3S</small></button>
+                <button class="iso-room-cell" data-room="11" onclick="app.selectHostelRoom('1st', '11', '3-Seater')">11 <small>4S</small></button>
+                <button class="iso-room-cell" data-room="12" onclick="app.selectHostelRoom('1st', '12', '2-Seater')">12 <small>3S</small></button>
+                <button class="iso-room-cell" data-room="13" onclick="app.selectHostelRoom('1st', '13', '2-Seater')">13 <small>2S</small></button>
+                <button class="iso-room-cell" data-room="14" onclick="app.selectHostelRoom('1st', '14', '2-Seater')">14 <small>4S</small></button>
+                <button class="iso-room-cell" data-room="15" onclick="app.selectHostelRoom('1st', '15', '4-Seater')">15 <small>3S</small></button>
+              </div>
+            </div>
+
+            <!-- Ground Floor: 10 Rooms -->
+            <div class="floor-row" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.1);">
+              <span class="floor-label">Ground<br><small style="font-size:0.68rem; color:#94a3b8;">(10 Rooms)</small></span>
+              <div class="floor-rooms">
+                <button class="iso-room-cell" data-room="16" onclick="app.selectHostelRoom('Ground', '16', '5-Seater')">16 <small>5S</small></button>
+                <button class="iso-room-cell" data-room="17" onclick="app.selectHostelRoom('Ground', '17', '5-Seater')">17 <small>5S</small></button>
+                <!-- Room 03: PANTRY HQ -->
+               <button class="iso-room-cell" data-room="18" onclick="app.selectHostelRoom('Ground', '18', '5-Seater')">18 <small>5S</small></button>
+                <button class="iso-room-cell" data-room="19" onclick="app.selectHostelRoom('Ground', '19', '5-Seater')">19 <small>5S</small></button>
+                <button class="iso-room-cell" data-room="20" onclick="app.selectHostelRoom('Ground', '20', '5-Seater')">20 <small>5S</small></button>
+                <button class="iso-room-cell" data-room="21" onclick="app.selectHostelRoom('Ground', '21', '5-Seater')">21 <small>5S</small></button>
+                <button class="iso-room-cell" data-room="22" onclick="app.selectHostelRoom('Ground', '22', '5-Seater')">22 <small>5S</small></button>
+                <button class="iso-room-cell" data-room="23" onclick="app.selectHostelRoom('Ground', '23', '5-Seater')">23 <small>5S</small></button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PRODUCT CATALOG SECTION
+         ========================================== -->
+    <section class="catalog-section" id="catalog">
+      <div class="section-header-centered">
+        <span class="section-japanese-tag">DOOMS MENU &bull; CHIPS & DRINKS</span>
+        <h2 class="section-main-title">Late-Night Munchies & Chilled Drinks</h2>
+        <p class="section-sub-desc">
+          Chilled beverages at 3.5&deg;C &bull; Ready to deliver in 2-3 minutes or collect from Room 03!
+        </p>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div class="catalog-controls-bar">
+        <div class="category-pills-group">
+          <button class="cat-pill-btn active" data-category="all">
+            <span>&#10024;</span> All Items
+          </button>
+          <button class="cat-pill-btn" data-category="chips">
+            <span>&#129364;</span> Chips (4)
+          </button>
+          <button class="cat-pill-btn" data-category="biscuits">
+            <span>&#127850;</span> Biscuits (2)
+          </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-input-wrap">
+          <span class="search-icon-symbol">&#128269;</span>
+          <input type="text" id="catalog-search-input" placeholder="Search Lay's, Thums Up, Kurkure...">
+        </div>
+      </div>
+
+      <!-- Dynamic Product Cards Grid -->
+      <div class="products-grid" id="products-grid">
+        <!-- Injected dynamically via app.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       CART SLIDE-OUT DRAWER
+       ========================================== -->
+  <div class="cart-backdrop" id="cart-backdrop"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3>
+        <span>&#128722;</span> Your Dooms Stash
+      </h3>
+      <button class="close-drawer-btn" onclick="app.closeCart()">&#10005;</button>
+    </div>
+
+    <!-- Scrollable Items Area -->
+    <div class="cart-items-scroll-area">
+      <div id="cart-items-list">
+        <!-- Injected via app.js -->
+      </div>
+      <div id="cart-bill-summary">
+        <!-- Injected via app.js -->
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       MODAL 1: PAYMENT MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="payment-modal">
+    <div id="payment-modal-content">
+      <!-- Injected via app.js -->
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 2: 2-3 MINUTE DELIVERY TRACKER MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="tracker-modal">
+    <div id="tracker-modal-content">
+      <!-- Injected via app.js -->
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 3: QUICK VIEW 3D PRODUCT MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="quick-view-modal">
+    <div id="quick-view-content">
+      <!-- Injected via app.js -->
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MOBILE FLOATING QUICK CART BAR
+       ========================================== -->
+  <div class="floating-mobile-cart-bar" id="mobile-floating-cart" onclick="app.openCart()">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span style="font-size: 1.4rem;">&#128722;</span>
+      <div>
+        <strong class="cart-bar-total" style="font-size: 1.1rem; font-weight: 900;">&#8377;0</strong>
+        <div style="font-size: 0.75rem; opacity: 0.85;"><span class="cart-count-badge" style="display:inline-flex; width:18px; height:18px; font-size:0.65rem; padding:0; justify-content:center; align-items:center;">0</span> items in Stash</div>
+      </div>
+    </div>
+    <div style="font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 0.35rem;">
+      <span>View Cart</span>
+      <span>&rarr;</span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="animations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

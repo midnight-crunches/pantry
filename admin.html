@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Midnight Crunches</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .admin-header {
+      background: rgba(13, 17, 23, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, #00f2fe, #4facfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .refresh-btn {
+      background: #00f2fe;
+      color: #0d1117;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .refresh-btn:hover {
+      background: #4facfe;
+      transform: scale(1.05);
+    }
+
+    .orders-container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .order-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .order-card:hover {
+      border-color: #00f2fe;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .order-id {
+      font-weight: 900;
+      color: #00f2fe;
+      font-size: 1.1rem;
+    }
+
+    .order-time {
+      font-size: 0.8rem;
+      color: #8b949e;
+    }
+
+    .order-detail {
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .order-detail strong {
+      color: #fff;
+    }
+
+    .items-list {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #ffaa00;
+      white-space: pre-wrap;
+      margin-top: 1rem;
+    }
+
+    .order-total {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #4facfe;
+      text-align: right;
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 3rem;
+      color: #8b949e;
+      font-size: 1.2rem;
+      grid-column: 1 / -1;
+    }
+
+    .error-state {
+      color: #ff5252;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 82, 82, 0.1);
+      border: 1px solid #ff5252;
+      border-radius: 8px;
+      grid-column: 1 / -1;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.1);
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="admin-header">
+    <h1>🚀 Midnight Crunches - Live HQ</h1>
+    <div style="display:flex; align-items:center; gap: 10px;">
+      <span id="total-earned" style="background:#00f2fe; color:#000; padding:5px 10px; border-radius:10px; font-weight:bold;">Total: ₹0</span>
+      <button class="refresh-btn" onclick="fetchOrders()">🔄 Refresh</button>
+    </div>
+  </header>
+
+  <div style="max-width: 800px; margin: 20px auto; background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
+    <h2 style="margin-top: 0; color: #fff; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem;">
+      📦 Stock Management
+      <button onclick="renderStock()" style="background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">Refresh Stock</button>
+    </h2>
+    <div id="stock-container" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;">
+      <!-- Stock items injected via script -->
+    </div>
+  </div>
+
+  <div class="orders-container" id="orders-container">
+    <div class="loading-state">Fetching orders from Google Sheets backend...</div>
+  </div>
+
+  <script>
+    // Paste your Google Apps Script URL here
+    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxD3qCxNC2JzLLQNDT-aNLuEmyN9sXif4M2OzkmNYKy98c-C3onnEVcwOmvit6f6YUa/exec';
+
+    async function fetchOrders() {
+      const container = document.getElementById('orders-container');
+      container.innerHTML = '<div class="loading-state">Fetching latest orders... 🔄</div>';
+
+      try {
+        const response = await fetch(WEBAPP_URL);
+        const json = await response.json();
+
+        if (json.status === 'success' && json.data.length > 0) {
+          renderOrders(json.data);
+        } else if (json.status === 'success' && json.data.length === 0) {
+          container.innerHTML = '<div class="loading-state">No orders found yet. Time to study! 📚</div>';
+        } else {
+          throw new Error(json.message || 'Unknown error occurred');
+        }
+      } catch (error) {
+        // Fallback to localStorage if fetch fails
+        try {
+          const localData = localStorage.getItem('dorms_orders_cloud');
+          if (localData) {
+            const parsed = JSON.parse(localData);
+            if (parsed.length > 0) {
+              const mappedOrders = parsed.map(o => ({
+                'Order ID': o.orderId,
+                'Timestamp': o.timestamp,
+                'Student Name': o.studentName,
+                'Room No': o.roomNo,
+                'Phone': o.phone,
+                'Order Type': o.orderType,
+                'Instructions': o.instructions,
+                'Items Summary': o.items ? o.items.map(i => `${i.qty}x ${i.name}`).join(', ') : '',
+                'Grand Total': o.grandTotal,
+                'Status': o.status
+              }));
+              renderOrders(mappedOrders);
+              return;
+            }
+          }
+        } catch(e) {}
+        
+        container.innerHTML = `<div class="error-state">
+          <strong>⚠️ Connection Error:</strong><br>
+          Failed to fetch orders. Please check your internet connection or Google Apps Script configuration.<br>
+          <small>${error.message}</small>
+        </div>`;
+      }
+    }
+
+    function renderOrders(orders) {
+      const container = document.getElementById('orders-container');
+      container.innerHTML = '';
+      let totalEarned = 0;
+      let deletedOrders = JSON.parse(localStorage.getItem('deleted_orders') || '[]');
+      
+      const activeOrders = orders.filter(o => !deletedOrders.includes(o['Order ID']));
+
+      activeOrders.forEach(order => {
+        totalEarned += Number(order['Grand Total']) || 0;
+        const typeIcon = order['Order Type'] && order['Order Type'].includes('Room') ? '🚀' : '🏠';
+
+        const card = document.createElement('div');
+        card.className = 'order-card';
+        card.innerHTML = `
+          <div class="order-header">
+            <span class="order-id">${order['Order ID'] || '#UNKNOWN'} <span class="status-badge">${order['Status'] || 'NEW'}</span></span>
+            <span class="order-time">${order['Timestamp']}</span>
+          </div>
+          <div class="order-detail"><strong>👤 Name:</strong> ${order['Student Name']}</div>
+          <div class="order-detail"><strong>🚪 Room:</strong> ${order['Room No']}</div>
+          <div class="order-detail"><strong>📞 Phone:</strong> ${order['Phone']}</div>
+          <div class="order-detail"><strong>${typeIcon} Type:</strong> ${order['Order Type']}</div>
+          ${order['Instructions'] ? `<div class="order-detail"><strong>💬 Note:</strong> ${order['Instructions']}</div>` : ''}
+          
+          <div class="items-list">${order['Items Summary'] || 'No items listed'}</div>
+          
+          <div class="order-total" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Total: ₹${order['Grand Total']}</span>
+            <button onclick="deleteOrder('${order['Order ID']}')" style="background:red; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">Delete</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      
+      const totalEl = document.getElementById('total-earned');
+      if (totalEl) totalEl.innerText = 'Total: ₹' + totalEarned;
+    }
+
+    function deleteOrder(orderId) {
+      if(!confirm('Are you sure you want to delete this order?')) return;
+      let deleted = JSON.parse(localStorage.getItem('deleted_orders') || '[]');
+      deleted.push(orderId);
+      localStorage.setItem('deleted_orders', JSON.stringify(deleted));
+      
+      // Also delete from local cloud storage
+      try {
+        let localData = localStorage.getItem('dorms_orders_cloud');
+        if (localData) {
+          let parsed = JSON.parse(localData);
+          parsed = parsed.filter(o => o.orderId !== orderId);
+          localStorage.setItem('dorms_orders_cloud', JSON.stringify(parsed));
+        }
+      } catch(e) {}
+      
+      fetchOrders();
+    }
+
+    function renderStock() {
+      const stockContainer = document.getElementById('stock-container');
+      const stockStr = localStorage.getItem('dorms_pantry_stock');
+      if (!stockStr) {
+        stockContainer.innerHTML = '<div style="color: #cbd5e1;">Stock data not found. Open the main shop page first to initialize it.</div>';
+        return;
+      }
+      
+      const stock = JSON.parse(stockStr);
+      stockContainer.innerHTML = '';
+      
+      Object.keys(stock).forEach(id => {
+        const item = stock[id];
+        const card = document.createElement('div');
+        card.style.cssText = 'background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; min-width: 150px; text-align: center; border: 1px solid rgba(255,255,255,0.1);';
+        card.innerHTML = `
+          <div style="font-weight: bold; font-size: 0.8rem; margin-bottom: 8px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.name}">${item.name}</div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+            <button onclick="updateStock('${id}', -1)" style="width: 25px; height: 25px; border:none; background:#ff4444; color:white; border-radius:4px; cursor:pointer; font-weight:bold;">-</button>
+            <input type="number" id="stock-input-${id}" value="${item.qty}" onchange="setStock('${id}', this.value)" style="width: 50px; text-align: center; background: rgba(0,0,0,0.5); border: 1px solid #555; color: white; border-radius: 4px; padding: 3px;">
+            <button onclick="updateStock('${id}', 1)" style="width: 25px; height: 25px; border:none; background:#00e676; color:#000; border-radius:4px; cursor:pointer; font-weight:bold;">+</button>
+          </div>
+        `;
+        stockContainer.appendChild(card);
+      });
+    }
+    
+    function updateStock(id, delta) {
+      const stock = JSON.parse(localStorage.getItem('dorms_pantry_stock'));
+      if (stock && stock[id]) {
+        stock[id].qty = Math.max(0, stock[id].qty + delta);
+        localStorage.setItem('dorms_pantry_stock', JSON.stringify(stock));
+        renderStock();
+      }
+    }
+    
+    function setStock(id, val) {
+      const stock = JSON.parse(localStorage.getItem('dorms_pantry_stock'));
+      if (stock && stock[id]) {
+        stock[id].qty = Math.max(0, parseInt(val) || 0);
+        localStorage.setItem('dorms_pantry_stock', JSON.stringify(stock));
+        renderStock();
+      }
+    }
+
+    // Auto-fetch on load
+    window.onload = () => {
+      fetchOrders();
+      renderStock();
+    };
+    // Refresh every 30 seconds
+    setInterval(fetchOrders, 30000);
+  </script>
+</body>
+
+</html>
