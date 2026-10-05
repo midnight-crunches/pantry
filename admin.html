@@ -286,16 +286,58 @@
       
       fetchOrders();
     }
+    // ⚙️ MANUAL STOCK CONFIGURATION (EDIT QUANTITIES HERE)
+    const DEFAULT_STOCK = {
+      "lays-magic-masala-small": { name: "Lay's India's Magic Masala (Small)", qty: 20 },
+      "lays-magic-masala-big": { name: "Lay's India's Magic Masala (Large)", qty: 20 },
+      "kurkure-masala-munch": { name: "Kurkure Masala Munch", qty: 20 },
+      "kurkure-pack-3": { name: "Kurkure Masala Munch (Pack of 3)", qty: 10 },
+      "oreo-strawberry": { name: "Oreo Strawberry", qty: 15 },
+      "balaji-wafers": { name: "Balaji Wafers (Jumbo)", qty: 15 }
+    };
 
-    function renderStock() {
+    async function initializeStock() {
+      try {
+        await fetch('/api/stock', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(DEFAULT_STOCK)
+        });
+        localStorage.setItem('dorms_pantry_stock', JSON.stringify(DEFAULT_STOCK));
+        renderStock();
+      } catch (e) {
+        alert("Failed to initialize stock!");
+      }
+    }
+
+    async function renderStock() {
       const stockContainer = document.getElementById('stock-container');
-      const stockStr = localStorage.getItem('dorms_pantry_stock');
-      if (!stockStr) {
-        stockContainer.innerHTML = '<div style="color: #cbd5e1;">Stock data not found. Open the main shop page first to initialize it.</div>';
+      
+      let stock = {};
+      try {
+        const response = await fetch('/api/stock');
+        if (response.ok) {
+          const apiStock = await response.json();
+          if (Object.keys(apiStock).length > 0) {
+            stock = apiStock;
+            localStorage.setItem('dorms_pantry_stock', JSON.stringify(stock));
+          }
+        }
+      } catch (e) {
+        const stockStr = localStorage.getItem('dorms_pantry_stock');
+        if (stockStr) stock = JSON.parse(stockStr);
+      }
+
+      if (Object.keys(stock).length === 0) {
+        stockContainer.innerHTML = `
+          <div style="color: #cbd5e1; margin-bottom: 15px;">Stock data not found or empty.</div>
+          <button onclick="initializeStock()" style="padding: 10px 20px; background: linear-gradient(90deg, #00f2fe, #4facfe); border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; font-family: 'Inter', sans-serif;">
+            Initialize Default Stock
+          </button>
+        `;
         return;
       }
       
-      const stock = JSON.parse(stockStr);
       stockContainer.innerHTML = '';
       
       Object.keys(stock).forEach(id => {
@@ -314,20 +356,34 @@
       });
     }
     
-    function updateStock(id, delta) {
-      const stock = JSON.parse(localStorage.getItem('dorms_pantry_stock'));
+    async function updateStock(id, delta) {
+      const stock = JSON.parse(localStorage.getItem('dorms_pantry_stock')) || {};
       if (stock && stock[id]) {
         stock[id].qty = Math.max(0, stock[id].qty + delta);
         localStorage.setItem('dorms_pantry_stock', JSON.stringify(stock));
+        try {
+          await fetch('/api/stock', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(stock)
+          });
+        } catch(e) {}
         renderStock();
       }
     }
     
-    function setStock(id, val) {
-      const stock = JSON.parse(localStorage.getItem('dorms_pantry_stock'));
+    async function setStock(id, val) {
+      const stock = JSON.parse(localStorage.getItem('dorms_pantry_stock')) || {};
       if (stock && stock[id]) {
         stock[id].qty = Math.max(0, parseInt(val) || 0);
         localStorage.setItem('dorms_pantry_stock', JSON.stringify(stock));
+        try {
+          await fetch('/api/stock', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(stock)
+          });
+        } catch(e) {}
         renderStock();
       }
     }
@@ -338,7 +394,10 @@
       renderStock();
     };
     // Refresh every 30 seconds
-    setInterval(fetchOrders, 30000);
+    setInterval(() => {
+      fetchOrders();
+      renderStock();
+    }, 30000);
   </script>
 </body>
 
